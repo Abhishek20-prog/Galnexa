@@ -9,6 +9,13 @@ import { SiTailwindcss, SiGreensock } from "react-icons/si";
 
 gsap.registerPlugin(useGSAP);
 const PER_PAGE = 30;
+const MIN_LOADING_TIME = 1200;
+
+function delay(milliseconds) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, milliseconds);
+  });
+}
 const TECHNOLOGIES = [
   {
     name: "React",
@@ -90,16 +97,7 @@ function App() {
           },
           "-=0.4"
         )
-        // .from(
-        //   ".nav-link",
-        //   {
-        //     y: -15,
-        //     autoAlpha: 0,
-        //     duration: 0.4,
-        //     stagger: 0.12,
-        //   },
-        //   "-=0.3"
-        // );
+        
 
       // Continuous floating logo animation
       gsap.to(".brand-icon", {
@@ -172,59 +170,70 @@ function App() {
   useEffect(() => {
     const controller = new AbortController();
 
-    async function fetchPics() {
-      try {
-        setLoading(true);
-        setError("");
+  async function fetchPics() {
+  const loadingStartedAt = Date.now();
 
-        const apiKey = import.meta.env.VITE_PEXELS_API_KEY;
+  try {
+    setLoading(true);
+    setError("");
 
-        if (!apiKey) {
-          throw new Error("Pexels API key is missing");
-        }
+    const apiKey = import.meta.env.VITE_PEXELS_API_KEY;
 
-        const { data } = await axios.get(
-          "https://api.pexels.com/v1/curated",
-          {
-            params: {
-              page,
-              per_page: PER_PAGE,
-            },
-            headers: {
-              Authorization: apiKey,
-            },
-            signal: controller.signal,
-          }
-        );
-
-        setPics(data.photos ?? []);
-        setHasNextPage(Boolean(data.next_page));
-
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-      } catch (error) {
-        if (
-          error.name === "CanceledError" ||
-          error.code === "ERR_CANCELED"
-        ) {
-          return;
-        }
-
-        console.error(error);
-
-        setError(
-          error.response?.data?.error ||
-          error.message ||
-          "Unable to load photos"
-        );
-      } finally {
-        if (!controller.signal.aborted) {
-          setLoading(false);
-        }
-      }
+    if (!apiKey) {
+      throw new Error("Pexels API key is missing");
     }
+
+    const { data } = await axios.get(
+      "https://api.pexels.com/v1/curated",
+      {
+        params: {
+          page,
+          per_page: PER_PAGE,
+        },
+        headers: {
+          Authorization: apiKey,
+        },
+        signal: controller.signal,
+      }
+    );
+
+    setPics(data.photos ?? []);
+    setHasNextPage(Boolean(data.next_page));
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  } catch (error) {
+    if (
+      error.name === "CanceledError" ||
+      error.code === "ERR_CANCELED"
+    ) {
+      return;
+    }
+
+    console.error(error);
+
+    setError(
+      error.response?.data?.error ||
+        error.message ||
+        "Unable to load photos"
+    );
+  } finally {
+    const elapsedTime = Date.now() - loadingStartedAt;
+
+    const remainingTime = Math.max(
+      0,
+      MIN_LOADING_TIME - elapsedTime
+    );
+
+    await delay(remainingTime);
+
+    if (!controller.signal.aborted) {
+      setLoading(false);
+    }
+  }
+}
 
     fetchPics();
 
@@ -350,15 +359,39 @@ function App() {
     )}
 
     {/* Loading */}
-    {loading && pics.length === 0 && (
-      <div className="mt-12 flex flex-col items-center gap-3">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-violet-200 border-t-violet-600" />
+   {loading && pics.length === 0 && (
+  <div className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-gradient-to-br from-violet-50 via-white to-cyan-50">
+    <div className="relative flex h-24 w-24 items-center justify-center">
+      <div className="absolute inset-0 animate-spin rounded-full border-4 border-violet-200 border-t-violet-600" />
 
-        <p className="font-poppins text-sm text-slate-500">
-          Loading beautiful photos...
-        </p>
-      </div>
-    )}
+      <img
+        src={logo}
+        alt="Galnexa"
+        className="h-16 w-16 object-contain"
+      />
+    </div>
+
+    <h2 className="mt-6 font-poppins text-2xl font-bold text-slate-800">
+      Galnexa
+    </h2>
+
+    <p className="mt-2 font-poppins text-sm text-slate-500">
+      Curating beautiful moments...
+    </p>
+
+    <div className="mt-5 flex gap-1.5">
+      {[0, 1, 2].map((item) => (
+        <span
+          key={item}
+          className="h-2 w-2 animate-bounce rounded-full bg-violet-500"
+          style={{
+            animationDelay: `${item * 150}ms`,
+          }}
+        />
+      ))}
+    </div>
+  </div>
+)}
 
     <div ref={galleryRef}>
       {/* Gallery */}
