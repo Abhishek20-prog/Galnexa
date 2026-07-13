@@ -9,7 +9,7 @@ function App() {
       setLoading(true);
 
       const response = await fetch(
-        "https://picsum.photos/v2/list?page=1&limit=30"
+        "https://picsum.photos/v2/list?page=1&limit=32"
       );
 
       if (!response.ok) {
@@ -39,7 +39,7 @@ function App() {
         {loading ? "Loading..." : "Get Pics"}
       </button>
 
-      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {pics.map((pic) => (
           <div
             key={pic.id}
