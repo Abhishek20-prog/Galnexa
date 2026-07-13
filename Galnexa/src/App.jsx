@@ -13,6 +13,10 @@ function App() {
   const [hasNextPage, setHasNextPage] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+ 
+  
+
+ 
   // References for GSAP animation scopes
   const appRef = useRef(null);
   const galleryRef = useRef(null);
@@ -311,6 +315,7 @@ function App() {
                   ${pic.src.large} 940w,
                   ${pic.src.large2x} 1880w
                 `}
+                  
                 sizes="(max-width: 640px) 100vw,
                        (max-width: 1024px) 50vw,
                        33vw"
@@ -449,6 +454,7 @@ function App() {
         </footer>
       )}
     </div>
+   
   </main>
 );
   
