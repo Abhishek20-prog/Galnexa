@@ -316,7 +316,7 @@ function App() {
             type="button"
             onClick={goToPreviousPage}
             disabled={page === 1 || loading}
-            className="rounded-lg bg-neutral-800 px-5 py-2.5 font-montserrat font-semibold transition hover:scale-105 hover:bg-neutral-700 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100"
+            className="rounded-lg bg-neutral-800 px-5 py-2.5 font-semibold font-poppins transition hover:scale-105 hover:bg-neutral-700 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100"
           >
             Previous
           </button>
@@ -329,7 +329,7 @@ function App() {
             type="button"
             onClick={goToNextPage}
             disabled={!hasNextPage || loading}
-            className="rounded-lg bg-neutral-800 px-5 py-2.5 font-montserrat font-semibold transition hover:scale-105 hover:bg-neutral-700 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100"
+            className="rounded-lg bg-neutral-800 px-5 py-2.5 font-semibold font-poppins  transition hover:scale-105 hover:bg-neutral-700 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100"
           >
             Next
           </button>
