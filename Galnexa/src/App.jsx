@@ -17,7 +17,7 @@ function App() {
       }
 
       const response = await fetch(
-        "https://api.pexels.com/v1/curated?page=1&per_page=30",
+        "https://api.pexels.com/v1/curated?page=1&per_page=80",
         {
           headers: {
             Authorization: apiKey,
@@ -57,7 +57,7 @@ function App() {
         </p>
       )}
 
-      <section className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {pics.map((pic) => (
           <article
             key={pic.id}
