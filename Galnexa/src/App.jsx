@@ -4,9 +4,41 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import galnexaLogo from "./assets/heading.png";
 import logo from "./assets/logo.png";
+import { FaReact, FaHtml5 } from "react-icons/fa";
+import { SiTailwindcss, SiGreensock } from "react-icons/si";
 
 gsap.registerPlugin(useGSAP);
 const PER_PAGE = 30;
+const TECHNOLOGIES = [
+  {
+    name: "React",
+    Icon: FaReact,
+    cardStyle:
+      "border-[#61DAFB]/30 bg-[#61DAFB]/10 shadow-[#61DAFB]/10",
+    iconStyle: "bg-[#61DAFB]/15 text-[#149ECA]",
+  },
+  {
+    name: "Tailwind CSS",
+    Icon: SiTailwindcss,
+    cardStyle:
+      "border-[#06B6D4]/30 bg-[#06B6D4]/10 shadow-[#06B6D4]/10",
+    iconStyle: "bg-[#06B6D4]/15 text-[#06B6D4]",
+  },
+  {
+    name: "HTML",
+    Icon: FaHtml5,
+    cardStyle:
+      "border-[#E34F26]/30 bg-[#E34F26]/10 shadow-[#E34F26]/10",
+    iconStyle: "bg-[#E34F26]/15 text-[#E34F26]",
+  },
+  {
+    name: "GSAP",
+    Icon: SiGreensock,
+    cardStyle:
+      "border-[#88CE02]/30 bg-[#88CE02]/10 shadow-[#88CE02]/10",
+    iconStyle: "bg-[#88CE02]/15 text-[#65A30D]",
+  },
+];
 function App() {
   const [pics, setPics] = useState([]);
   const [page, setPage] = useState(1);
@@ -58,16 +90,16 @@ function App() {
           },
           "-=0.4"
         )
-        .from(
-          ".nav-link",
-          {
-            y: -15,
-            autoAlpha: 0,
-            duration: 0.4,
-            stagger: 0.12,
-          },
-          "-=0.3"
-        );
+        // .from(
+        //   ".nav-link",
+        //   {
+        //     y: -15,
+        //     autoAlpha: 0,
+        //     duration: 0.4,
+        //     stagger: 0.12,
+        //   },
+        //   "-=0.3"
+        // );
 
       // Continuous floating logo animation
       gsap.to(".brand-icon", {
@@ -235,21 +267,57 @@ function App() {
         />
       </div>
 
-      <nav className="flex shrink-0 items-center gap-1 font-poppins text-xs sm:gap-3 sm:text-sm">
-        <a
-          href="#gallery"
-          className="rounded-full px-3 py-2 font-medium text-slate-600 transition duration-300 hover:bg-violet-50 hover:text-violet-700 sm:px-4"
-        >
-          Gallery
-        </a>
+     <nav className="relative z-50 flex shrink-0 items-center gap-2 font-poppins text-xs sm:gap-4 sm:text-sm">
+  <a
+    href="#gallery"
+    className="nav-link rounded-full px-4 py-2 font-medium text-slate-600 transition hover:bg-violet-50 hover:text-violet-700"
+  >
+    Gallery
+  </a>
 
-        <a
-          href="#about"
-          className="rounded-full bg-gradient-to-r from-violet-600 to-cyan-500 px-4 py-2 font-medium text-white shadow-md shadow-violet-200 transition duration-300 hover:-translate-y-0.5 hover:shadow-lg sm:px-5"
-        >
-          About
-        </a>
-      </nav>
+  <a
+  href="#about"
+  className="
+    nav-link
+    group
+    relative
+    z-10
+    inline-flex
+    items-center
+    justify-center
+    overflow-hidden
+    rounded-full
+    border border-violet-300
+    bg-white/70
+    px-5 py-2.5
+    font-poppins
+    text-sm
+    font-semibold
+    text-violet-700
+    shadow-[0_8px_25px_rgba(124,58,237,0.20)]
+    backdrop-blur-xl
+    transition-all
+    duration-300
+    hover:-translate-y-0.5
+    hover:border-cyan-400
+    hover:bg-gradient-to-r
+    hover:from-violet-100
+    hover:to-cyan-100
+    hover:text-violet-900
+    hover:shadow-[0_12px_35px_rgba(6,182,212,0.25)]
+  "
+>
+  <span className="relative z-10 flex items-center gap-2">
+    About
+
+    <span className="transition-transform duration-300 group-hover:translate-x-1">
+      ↗
+    </span>
+  </span>
+
+  <span className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent" />
+</a>
+</nav>
     </header>
 
     {/* Hero heading */}
@@ -399,51 +467,79 @@ function App() {
       </nav>
 
       {/* About */}
-      <section
-        id="about"
-        className="mx-auto mt-24 max-w-5xl scroll-mt-28 overflow-hidden rounded-[2.5rem] border border-violet-100 bg-white/80 px-6 py-14 shadow-[0_25px_80px_rgba(99,102,241,0.12)] backdrop-blur-xl sm:px-12"
-      >
-        <div className="grid items-center gap-10 md:grid-cols-2">
-          <div>
-            <p className="font-poppins text-xs font-semibold uppercase tracking-[0.35em] text-violet-500">
-              About Galnexa
-            </p>
+   <section
+  id="about"
+  className="mx-auto mt-24 max-w-5xl scroll-mt-28 overflow-hidden rounded-[2.5rem] border border-violet-100 bg-white/70 px-6 py-14 shadow-[0_25px_80px_rgba(99,102,241,0.12)] backdrop-blur-xl sm:px-12"
+>
+  <div className="grid items-center gap-10 md:grid-cols-2">
+    <div>
+      <p className="font-poppins text-xs font-semibold uppercase tracking-[0.35em] text-violet-500">
+        About Galnexa
+      </p>
 
-            <h2 className="mt-4 font-cormorant text-4xl font-semibold leading-tight text-slate-900 sm:text-5xl">
-              A modern space for visual discovery
-            </h2>
+      <h2 className="mt-4 font-cormorant text-4xl font-semibold leading-tight text-slate-900 sm:text-5xl">
+        A modern space for visual discovery
+      </h2>
 
-            <p className="mt-5 font-poppins leading-7 text-slate-500">
-              Galnexa is a responsive photo gallery built with React,
-              Tailwind CSS, Axios, GSAP and the Pexels API. It combines
-              curated photography with smooth navigation and subtle
-              animations.
-            </p>
-          </div>
+      <p className="mt-5 font-poppins leading-7 text-slate-500">
+        Galnexa is a responsive photo gallery built with React,
+        Tailwind CSS, Axios, GSAP and the Pexels API. It combines
+        curated photography with smooth navigation and subtle
+        animations.
+      </p>
+    </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            {[
-              ["30", "Photos per page"],
-              ["100%", "Responsive"],
-              ["GSAP", "Smooth motion"],
-              ["Pexels", "Photo source"],
-            ].map(([value, label]) => (
-              <div
-                key={label}
-                className="rounded-3xl border border-violet-100 bg-gradient-to-br from-violet-50 to-cyan-50 p-5"
-              >
-                <p className="font-poppins text-2xl font-bold text-violet-700">
-                  {value}
-                </p>
+    <div className="grid grid-cols-2 gap-4">
+      {[
+        ["30", "Photos per page"],
+        ["100%", "Responsive"],
+        ["GSAP", "Smooth motion"],
+        ["Pexels", "Photo source"],
+      ].map(([value, label]) => (
+        <div
+          key={label}
+          className="rounded-3xl border border-violet-100 bg-gradient-to-br from-violet-50 to-cyan-50 p-5"
+        >
+          <p className="font-poppins text-2xl font-bold text-violet-700">
+            {value}
+          </p>
 
-                <p className="mt-1 font-poppins text-xs text-slate-500">
-                  {label}
-                </p>
-              </div>
-            ))}
-          </div>
+          <p className="mt-1 font-poppins text-xs text-slate-500">
+            {label}
+          </p>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+
+  {/* Technology logos */}
+  <div className="mt-12 border-t border-violet-100 pt-8">
+    <p className="text-center font-poppins text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
+      Built with
+    </p>
+
+    <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+      {TECHNOLOGIES.map(
+        ({ name, Icon, cardStyle, iconStyle }) => (
+          <div
+            key={name}
+            className={`tech-logo group flex items-center gap-2 rounded-2xl border px-3 py-2 shadow-lg backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:bg-white/80 hover:shadow-xl ${cardStyle}`}
+          >
+            <div
+              className={`flex h-9 w-9 items-center justify-center rounded-xl backdrop-blur-md ${iconStyle}`}
+            >
+              <Icon className="text-xl transition duration-300 group-hover:scale-110" />
+            </div>
+
+            <span className="font-poppins text-xs font-semibold text-slate-700 sm:text-sm">
+              {name}
+            </span>
+          </div>
+        )
+      )}
+    </div>
+  </div>
+</section>
 
       {pics.length > 0 && (
         <footer className="mt-16 text-center">
